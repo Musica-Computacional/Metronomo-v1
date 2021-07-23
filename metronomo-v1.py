@@ -37,22 +37,37 @@ class Metronomo:
 
     def user_interface(self):
         """Intefaz de usuario para el metronomo."""
+        """Intefaz de usuario para el metronomo."""
         frame = Frame()
         frame.pack()
+
+        entry = Entry(frame, width=8, justify="center")
+        entry.insert(0, "60")
+        entry.grid(row=0, column=0, padx=5, sticky="E")
+
+        spinbox = Spinbox(frame, width=5, values=self.beats, wrap=True)
+        spinbox.grid(row=0, column=1, sticky="E")
+
+        label_bpm = Label(frame, text="bpm:")
+        label_bpm.grid(row=0, column=0, sticky="W")
+
+        label_time = Label(frame, text="tempo:")
+        label_time.grid(row=0, column=1, padx=5, sticky="W")
+
 
     def stop_counter(self):
         """Stop counter by setting self.start to False."""
         self.start = False
 
     def counter(self, spinbox):
-        """Control counter display and audio with calculated time delay.
+        """Controlador del contador en el UI y los beeps de audio con el retrazo.
         Args:
             spinbox (tkinter.Spinbox): tkinter Spinbox widget to get beat.
         """
         if self.start:
             self.beat = int(spinbox.get()[0])
 
-            self.time = int((60 / self.bpm - 0.1) * 1000)  # Math for delay
+            self.time = int((60 / self.bpm - 0.1) * 1000)  # el retrazo
 
             self.count += 1
             self.var.set(self.count)
@@ -65,7 +80,7 @@ class Metronomo:
             else:
                 Beep(440, 100)
 
-            # Calls this method after a certain amount of time (self.time).
+            # Se llama el metodo cada cierto periodo de timpo
             self.root.after(self.time, lambda: self.counter(spinbox))
 
 def main():
