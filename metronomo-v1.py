@@ -78,13 +78,13 @@ class Metronomo:
                     self.bpm = 300
 
             self.start = True
-            self.contador_central(spinbox)
+            self.contador(spinbox)
 
     def detener_contador(self):
         """Detener contador"""
         self.start = False
 
-    def contador_central(self, spinbox):
+    def contador(self, spinbox):
         """Controlador del contador en el UI y los beeps de audio con el retrazo.
         Args:
             spinbox (tkinter.Spinbox): tkinter Spinbox widget to get beat.
@@ -106,14 +106,14 @@ class Metronomo:
                 Beep(440, 100)
 
             # Se llama el metodo cada cierto periodo de timpo
-            self.root.after(self.time, lambda: self.contador_central(spinbox))
+            self.root.after(self.time, lambda: self.contador(spinbox))
 
 def main():
     """ Inicializar un objeto de tipo metronomo """
     root = Tk()
     root.title("Metronomo")
 
-    beats = ["4/4"]
+    beats = ["2/4", "3/4","4/4","5/4"]
     Metronomo(root, beats)
 
     root.mainloop()
