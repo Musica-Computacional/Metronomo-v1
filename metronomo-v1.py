@@ -95,7 +95,7 @@ class Metronomo:
             if self.beat == 6 :  # 6/8 
                 self.time = int((60 / (self.bpm / .5) - 0.1) * 1000)
             elif self.beat == 9 :  # 9/8 
-                self.time = int((60 / (self.bpm / .35) - 0.1) * 1000)
+                self.time = int((60 / (self.bpm / .4) - 0.1) * 1000)
             else:
                 self.time = int((60 / self.bpm - 0.1) * 1000)  # el retrazo
 
@@ -118,7 +118,7 @@ def main():
     root = Tk()
     root.title("Metronomo")
 
-    beats = ["2/4", "3/4","4/4","5/4","6/8","9/8"]
+    beats = ["2/4", "3/4","4/4","5/4","7/4","6/8","9/8"]
     Metronomo(root, beats)
 
     root.mainloop()

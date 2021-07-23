@@ -2,7 +2,15 @@
 Represnetacion de un metronomo en python
 
 # Instalacion
+ - Version minima de python - 3.5
+ - Paquetes 
+    - `tkinter`
+    - `winsound`
+ - Correr `> python metronomo-v1.py`
 
+
+# Intefaz de usuario
+![](MetronomoV1.png)
 
 ## Referencias
 ### winsound
