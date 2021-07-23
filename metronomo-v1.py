@@ -30,6 +30,43 @@ class Metronomo:
         self.beat   = 0
         self.time   = 0
 
+        self.var = StringVar()
+        self.var.set(self.count)
+
+        self.user_interface()
+
+    def user_interface(self):
+        """Intefaz de usuario para el metronomo."""
+        frame = Frame()
+        frame.pack()
+
+    def stop_counter(self):
+        """Stop counter by setting self.start to False."""
+        self.start = False
+
+    def counter(self, spinbox):
+        """Control counter display and audio with calculated time delay.
+        Args:
+            spinbox (tkinter.Spinbox): tkinter Spinbox widget to get beat.
+        """
+        if self.start:
+            self.beat = int(spinbox.get()[0])
+
+            self.time = int((60 / self.bpm - 0.1) * 1000)  # Math for delay
+
+            self.count += 1
+            self.var.set(self.count)
+
+            if self.count == 1:
+                Beep(880, 100)
+            elif self.count >= self.beat:
+                self.count = 0
+                Beep(440, 100)
+            else:
+                Beep(440, 100)
+
+            # Calls this method after a certain amount of time (self.time).
+            self.root.after(self.time, lambda: self.counter(spinbox))
 
 def main():
     """Call Metronomo class instance with tkinter root class settings.
