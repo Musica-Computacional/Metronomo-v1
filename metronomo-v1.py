@@ -57,7 +57,7 @@ class Metronomo:
         label_count.grid(row=1, column=0, columnspan=2)
 
         button_start = Button(frame, text="Play", width=10, height=2,
-                              command=lambda: self.start_contador_central(entry,
+                              command=lambda: self.iniciar_contador(entry,
                                                                  spinbox))
         button_start.grid(row=2, column=0, padx=10, sticky="W")
 
@@ -65,6 +65,20 @@ class Metronomo:
                              command=lambda: self.detener_contador())
         button_stop.grid(row=2, column=1, padx=10, sticky="E")
 
+    def iniciar_contador(self, entry, spinbox):
+        """Comienza contador si self.start es False.
+        """
+        if not self.start:
+            try:
+                self.bpm = int(entry.get())
+            except ValueError:
+                self.bpm = 60
+            else:
+                if self.bpm > 300:  # Limits BPM
+                    self.bpm = 300
+
+            self.start = True
+            self.contador_central(spinbox)
 
     def detener_contador(self):
         """Detener contador"""
@@ -95,12 +109,11 @@ class Metronomo:
             self.root.after(self.time, lambda: self.contador_central(spinbox))
 
 def main():
-    """Call Metronomo class instance with tkinter root class settings.
-        Inicializar un objeto de tipo metronomo """
+    """ Inicializar un objeto de tipo metronomo """
     root = Tk()
     root.title("Metronomo")
 
-    beats = "4/4"
+    beats = ["4/4"]
     Metronomo(root, beats)
 
     root.mainloop()
