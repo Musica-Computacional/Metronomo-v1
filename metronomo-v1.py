@@ -40,11 +40,11 @@ class Metronomo:
         frame = Frame()
         frame.pack()
 
-        entry = Entry(frame, width=8, justify="center")
-        entry.insert(0, "60")
+        entry = Entry(frame, width=12, justify="center")
+        entry.insert(0, "70")
         entry.grid(row=0, column=0, padx=5, sticky="E")
 
-        spinbox = Spinbox(frame, width=5, values=self.beats, wrap=True)
+        spinbox = Spinbox(frame, width=10, values=self.beats, wrap=True)
         spinbox.grid(row=0, column=1, sticky="E")
 
         label_bpm = Label(frame, text="bpm:")
@@ -53,15 +53,15 @@ class Metronomo:
         label_time = Label(frame, text="Tempo:")
         label_time.grid(row=0, column=1, padx=5, sticky="W")
 
-        label_count = Label(frame, textvariable=self.var, font=("Arial", 30))
+        label_count = Label(frame, textvariable=self.var, font=("Arial", 40))
         label_count.grid(row=1, column=0, columnspan=2)
 
-        button_start = Button(frame, text="Play", width=10, height=2,
+        button_start = Button(frame, text="Play", width=16, height=2,
                               command=lambda: self.iniciar_contador(entry,
                                                                  spinbox))
         button_start.grid(row=2, column=0, padx=10, sticky="W")
 
-        button_stop = Button(frame, text="Stop", width=10, height=2,
+        button_stop = Button(frame, text="Stop", width=16, height=2,
                              command=lambda: self.detener_contador())
         button_stop.grid(row=2, column=1, padx=10, sticky="E")
 
@@ -72,7 +72,7 @@ class Metronomo:
             try:
                 self.bpm = int(entry.get())
             except ValueError:
-                self.bpm = 60
+                self.bpm = 70
             else:
                 if self.bpm > 300:  # Limits BPM
                     self.bpm = 300
@@ -92,7 +92,12 @@ class Metronomo:
         if self.start:
             self.beat = int(spinbox.get()[0])
 
-            self.time = int((60 / self.bpm - 0.1) * 1000)  # el retrazo
+            if self.beat == 6 :  # 6/8 
+                self.time = int((60 / (self.bpm / .5) - 0.1) * 1000)
+            elif self.beat == 9 :  # 9/8 
+                self.time = int((60 / (self.bpm / .35) - 0.1) * 1000)
+            else:
+                self.time = int((60 / self.bpm - 0.1) * 1000)  # el retrazo
 
             self.count += 1
             self.var.set(self.count)
@@ -113,7 +118,7 @@ def main():
     root = Tk()
     root.title("Metronomo")
 
-    beats = ["2/4", "3/4","4/4","5/4"]
+    beats = ["2/4", "3/4","4/4","5/4","6/8","9/8"]
     Metronomo(root, beats)
 
     root.mainloop()
