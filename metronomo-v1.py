@@ -74,7 +74,7 @@ class Metronomo:
             except ValueError:
                 self.bpm = 70
             else:
-                if self.bpm > 300:  # Limits BPM
+                if self.bpm > 300:  # Limite para los beats por minuto bpm
                     self.bpm = 300
 
             self.start = True
@@ -87,7 +87,7 @@ class Metronomo:
     def contador(self, spinbox):
         """Controlador del contador en el UI y los beeps de audio con el retrazo.
         Args:
-            spinbox (tkinter.Spinbox): tkinter Spinbox widget to get beat.
+            spinbox (tkinter.Spinbox): tkinter Spinbox para los beats.
         """
         if self.start:
             self.beat = int(spinbox.get()[0])
