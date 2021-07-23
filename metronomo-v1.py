@@ -37,7 +37,6 @@ class Metronomo:
 
     def user_interface(self):
         """Intefaz de usuario para el metronomo."""
-        """Intefaz de usuario para el metronomo."""
         frame = Frame()
         frame.pack()
 
@@ -51,15 +50,27 @@ class Metronomo:
         label_bpm = Label(frame, text="bpm:")
         label_bpm.grid(row=0, column=0, sticky="W")
 
-        label_time = Label(frame, text="tempo:")
+        label_time = Label(frame, text="Tempo:")
         label_time.grid(row=0, column=1, padx=5, sticky="W")
 
+        label_count = Label(frame, textvariable=self.var, font=("Arial", 30))
+        label_count.grid(row=1, column=0, columnspan=2)
 
-    def stop_counter(self):
-        """Stop counter by setting self.start to False."""
+        button_start = Button(frame, text="Play", width=10, height=2,
+                              command=lambda: self.start_contador_central(entry,
+                                                                 spinbox))
+        button_start.grid(row=2, column=0, padx=10, sticky="W")
+
+        button_stop = Button(frame, text="Stop", width=10, height=2,
+                             command=lambda: self.detener_contador())
+        button_stop.grid(row=2, column=1, padx=10, sticky="E")
+
+
+    def detener_contador(self):
+        """Detener contador"""
         self.start = False
 
-    def counter(self, spinbox):
+    def contador_central(self, spinbox):
         """Controlador del contador en el UI y los beeps de audio con el retrazo.
         Args:
             spinbox (tkinter.Spinbox): tkinter Spinbox widget to get beat.
@@ -81,7 +92,7 @@ class Metronomo:
                 Beep(440, 100)
 
             # Se llama el metodo cada cierto periodo de timpo
-            self.root.after(self.time, lambda: self.counter(spinbox))
+            self.root.after(self.time, lambda: self.contador_central(spinbox))
 
 def main():
     """Call Metronomo class instance with tkinter root class settings.
